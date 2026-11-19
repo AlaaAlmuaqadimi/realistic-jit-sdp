@@ -1,0 +1,7 @@
+project,commits,train_pos,train_neg,test_pos,test_neg,retained,reason
+kamei/bugzilla,4620,1268,1966,428,958,True,
+kamei/columba,4455,1052,2066,309,1028,True,
+kamei/jdt,35386,3842,20928,1247,9369,True,
+kamei/mozilla,98275,4060,64732,1089,28394,True,
+kamei/platform,64250,6600,38375,2852,16423,True,
+kamei/postgres,20431,4043,10258,1076,5054,True,

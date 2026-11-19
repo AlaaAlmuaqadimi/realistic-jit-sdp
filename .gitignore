@@ -1,0 +1,36 @@
+# --- Third-party datasets: download them with `python download_data.py` ---
+data/
+
+# --- Large / binary generated artefacts (regenerate with run_all.py) ---
+*.joblib
+results*/raw/
+
+# --- Run logs (contain local machine paths) ---
+*.log
+
+# --- Python / tooling caches ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+
+# --- OS / editor files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# --- Private / working files (not part of the replication package) ---
+تقرير_البناء.md
+paper/main_v1_apachejit_only.tex
+paper/*.docx
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.pdf

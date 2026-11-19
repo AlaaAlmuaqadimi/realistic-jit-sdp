@@ -1,0 +1,16 @@
+project,commits,train_pos,train_neg,test_pos,test_neg,retained,reason
+apache/activemq,6126,1000,3288,404,1434,True,
+apache/camel,22700,2698,13192,380,6430,True,
+apache/cassandra,8159,2214,3497,903,1545,True,
+apache/flink,11691,2211,5972,600,2908,True,
+apache/groovy,8059,1221,4420,393,2025,True,
+apache/hadoop,11964,0,8374,0,3590,False,fewer than 50 commits of a class in a split
+apache/hadoop-hdfs,2907,1502,532,720,153,True,
+apache/hadoop-mapreduce,1321,511,413,327,70,True,
+apache/hbase,8730,3031,3080,751,1868,True,
+apache/hive,6842,3293,1496,930,1123,True,
+apache/ignite,12036,1309,7116,1130,2481,True,
+apache/kafka,2384,932,736,183,533,True,
+apache/spark,1465,518,507,114,326,True,
+apache/zeppelin,1451,454,561,168,268,True,
+apache/zookeeper,839,307,280,35,217,False,fewer than 50 commits of a class in a split
