@@ -31,7 +31,7 @@ def _md(df: pd.DataFrame, floatfmt=".3f") -> str:
 def _save(fig, name):
     C.FIGURES.mkdir(parents=True, exist_ok=True)
     fig.tight_layout()
-    fig.savefig(C.FIGURES / name, dpi=150)
+    fig.savefig(C.FIGURES / name, dpi=300)  # IEEE print quality
     plt.close(fig)
     return (C.FIGURES / name).relative_to(C.ROOT).as_posix()
 

@@ -132,7 +132,7 @@ def rq1(pp, win):
         ax.set_xlabel("")
         ax.set_ylabel("PR-AUC")
     fig.tight_layout()
-    fig.savefig(FIG / "x_rq1_protocols.png", dpi=170)
+    fig.savefig(FIG / "x_rq1_protocols.png", dpi=300)
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(6.6, 4.6))
@@ -154,7 +154,7 @@ def rq1(pp, win):
     ax.legend(frameon=False, fontsize=9)
     ax.grid(alpha=.3)
     fig.tight_layout()
-    fig.savefig(FIG / "x_rq1_drop_vs_prevalence.png", dpi=200)
+    fig.savefig(FIG / "x_rq1_drop_vs_prevalence.png", dpi=300)
     plt.close(fig)
     return t, cors, wr
 
@@ -213,7 +213,7 @@ def rq2(main, pp):
         ax.set_title(f"{title}: average rank over {f['n']} projects (CD = {f['cd']:.2f})")
         ax.set_xlabel("average rank (lower is better)")
     fig.tight_layout()
-    fig.savefig(FIG / "x_rq2_ranks.png", dpi=170)
+    fig.savefig(FIG / "x_rq2_ranks.png", dpi=300)
     plt.close(fig)
     return t, vs
 
