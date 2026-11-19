@@ -1,0 +1,64 @@
+% ---------------------------------------------------------------------------
+%  Title page for Empirical Software Engineering (separate from the manuscript).
+%  EMSE asks for: title, author names and affiliations, a corresponding author
+%  with an active e-mail address, each author's ORCID, the acknowledgments,
+%  and the declarations. Compile on its own with pdflatex (no bibliography).
+% ---------------------------------------------------------------------------
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{xcolor}
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Does Just-in-Time Defect Prediction Survive Realistic Evaluation?\par}
+\vspace{0.4em}
+{\large Time Order, Label Latency, and Review Effort on 321{,}288 Commits from Two Datasets\par}
+\vspace{1.6em}
+
+{\large Farida Hisham Ghariani\textsuperscript{1} \quad and \quad Alla Khaled Almuqadimi\textsuperscript{2,*}\par}
+\vspace{1em}
+
+\textsuperscript{1,2}College of Computer Technology (CCTT), Postgraduate Program, MSc Computer Science, Tripoli, Libya
+\end{center}
+
+\vspace{1em}
+\noindent\textbf{Authors}
+
+\begin{itemize}
+\item \textbf{Farida Hisham Ghariani} --- e-mail: \href{mailto:fhmghariani@gmail.com}{fhmghariani@gmail.com};
+      ORCID: \href{https://orcid.org/0009-0003-8836-5118}{0009-0003-8836-5118}
+\item \textbf{Alla Khaled Almuqadimi} (corresponding author) --- e-mail: \href{mailto:al3muqadimi@gmail.com}{al3muqadimi@gmail.com};
+      ORCID: \href{https://orcid.org/0009-0001-4590-4236}{0009-0001-4590-4236}
+\end{itemize}
+
+\noindent\textsuperscript{*}Corresponding author: Alla Khaled Almuqadimi, \href{mailto:al3muqadimi@gmail.com}{al3muqadimi@gmail.com}
+
+\section*{Acknowledgments}
+
+\noindent We thank Dr.\ Mohamed Alardawi (College of Computer Technology, Tripoli) for supervising this work. We also thank the authors of ApacheJIT (Keshavarz and Nagappan) and of the dataset of Kamei et al., as well as Yang et al.\ and Fu and Menzies, for making their data public.
+
+\section*{Declarations}
+
+\paragraph{Funding} The authors did not receive support from any organization for the submitted work.
+
+\paragraph{Competing interests} The authors have no competing interests to declare that are relevant to the content of this article.
+
+\paragraph{Ethics approval} Not applicable. The study analyzes publicly available software-repository data and involves no human participants.
+
+\paragraph{Consent to participate} Not applicable.
+
+\paragraph{Consent for publication} Not applicable.
+
+\paragraph{Data, materials and code availability} ApacheJIT is publicly available at \url{https://github.com/hosseinkshvrz/apachejit}. The dataset of Kamei et al.\ is available in the replication package of Fu and Menzies at \url{https://github.com/WeiFoo/RevisitUnsupervised}. The complete replication package (code, configuration, result tables, figures, unit tests, a data-download script, and the prototype) is publicly available at \url{https://github.com/AlaaAlmuaqadimi/realistic-jit-sdp}; the exact version used in this paper (v1.0.0) is archived on Zenodo with DOI \href{https://doi.org/10.5281/zenodo.24371576}{10.5281/zenodo.24371576}.
+
+\paragraph{Authors' contributions} All authors contributed to the study conception and design, the implementation and analysis, and the writing of the manuscript. All authors read and approved the final manuscript.
+
+\paragraph{Use of AI tools} AI-based assistants were used to help implement parts of the experiment code, generate figures, and edit the language of the manuscript; this is documented in the Methods section (Implementation and reproducibility). The authors take full responsibility for the content.
+
+\end{document}

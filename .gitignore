@@ -30,10 +30,10 @@ desktop.ini
 # --- Private / working files (not part of the replication package) ---
 تقرير_البناء.md
 paper/main_v1_apachejit_only.tex
-paper/*.docx
-paper/*.aux
-paper/*.log
-paper/*.bbl
-paper/*.blg
-paper/*.out
-paper/*.pdf
+paper*/*.docx
+paper*/*.aux
+paper*/*.log
+paper*/*.bbl
+paper*/*.blg
+paper*/*.out
+paper*/*.pdf

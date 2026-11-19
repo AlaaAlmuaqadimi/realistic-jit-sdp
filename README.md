@@ -73,6 +73,7 @@ predict.py           command-line prototype (Low / Medium / High risk)
 results*/            result tables and figures per dataset (raw outputs are regenerated)
 report*.md           generated per-dataset reports
 paper/               LaTeX source, bibliography, and figures of the paper (see paper/README.md)
+paper_emse/          the same paper formatted for Empirical Software Engineering (see paper_emse/README.md)
 CITATION.cff         citation metadata (GitHub "Cite this repository", Zenodo)
 ```
 
