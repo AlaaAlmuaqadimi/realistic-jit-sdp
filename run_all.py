@@ -97,7 +97,7 @@ def build_report(df, val, excl):
     nwin = windows[windows.setting == "realistic"].groupby("project").window.nunique()
     out = [
         "# Realistic Evaluation of ML-Based Just-in-Time Defect Prediction - Results\n",
-        "*SD566 Artificial Intelligence - Farida Al-Ghariani, Alaa Al-Muqadami. "
+        f"*Dataset: {C.DATASET}. Farida Hisham Ghariani, Alla Khaled Almuqadimi (CCTT, Tripoli). "
         "Generated automatically by `python run_all.py`.*\n",
         "## Executive summary\n",
         f"| Hypothesis | Verdict |\n|---|---|\n| H1 - realistic evaluation lowers PR-AUC and F1 | "

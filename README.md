@@ -1,55 +1,80 @@
-# Realistic Evaluation of ML-Based Just-in-Time Defect Prediction
+# Does Just-in-Time Defect Prediction Survive Realistic Evaluation?
 
-Implementation of the SD566 project proposal (Farida Al-Ghariani, Alaa Al-Muqadami).
-It measures how much of the reported performance of standard classifiers survives
-when JIT defect prediction is evaluated realistically: chronological splits, label
-latency, class imbalance and effort-aware metrics, on **ApacheJIT** (106,674 commits).
+Replication package for the paper
+**"Does Just-in-Time Defect Prediction Survive Realistic Evaluation? Time Order, Label Latency, and Review Effort on 321,288 Commits from Two Datasets"**
+by Farida Hisham Ghariani and Alla Khaled Almuqadimi
+(College of Computer Technology (CCTT), Tripoli, Libya).
 
-## Quick start
+The study measures how much of the reported performance of standard JIT defect
+predictors survives realistic evaluation. It covers chronological splits, label
+latency, class imbalance, and effort-aware metrics on **19 projects** from two
+independent datasets:
 
-```powershell
+| Dataset | Projects | Commits | Languages |
+|---|---|---|---|
+| [ApacheJIT](https://github.com/hosseinkshvrz/apachejit) (Keshavarz & Nagappan, MSR 2022) | 13 retained of 15 | 93,871 | Java |
+| Kamei et al. (TSE 2013), via [RevisitUnsupervised](https://github.com/WeiFoo/RevisitUnsupervised) | 6 | 227,417 | C, C++, Perl, Java |
+
+## Key findings
+
+| Hypothesis | ApacheJIT | Kamei | All 19 projects |
+|---|---|---|---|
+| H1: realistic evaluation lowers PR-AUC and F1 | supported (−0.070) | supported (−0.063) | **supported** |
+| H2: class weighting helps; ML beats the unsupervised baseline on Recall@20% effort | not supported | not supported | **not supported**, but risk-per-line ranking beats the baseline in both datasets |
+| H3: top-5 SHAP features stable over time (ρ ≥ 0.7) | 0.60 | 0.71 | **0.64, dataset-dependent** |
+
+## Reproduce
+
+Requires Python ≥ 3.10.
+
+```bash
 pip install -r requirements.txt
-python run_all.py                  # all experiments + report.md (~20 min, 12 cores)
-python run_all.py --analysis-only  # rebuild tables/figures from saved results
-python -m pytest -q                # leakage / protocol / metric tests
-python predict.py --example        # prototype: score held-out commits
+python download_data.py                     # fetch both datasets into data/ and print SHA-256
+python -m pytest -q                         # 12 leakage / protocol / metric tests
+python run_all.py --dataset apachejit       # ~19 min on 12 cores -> results/, report.md
+python run_all.py --dataset kamei           # ~36 min on 12 cores -> results_kamei/, report_kamei.md
+python cross_dataset.py                     # H1-H3 over all 19 projects -> results_combined/
+python predict.py --example                 # prototype (needs a run_all.py run first)
 ```
 
-The dataset is in `data/apachejit_total.csv` (source:
-<https://github.com/hosseinkshvrz/apachejit>, SHA-256 recorded in `report.md`).
+Add `--analysis-only` to `run_all.py` to rebuild tables and figures from saved raw results.
+Expected dataset hashes:
 
-## What is implemented
+- ApacheJIT `5097cbbbab8c4611a709b3cf95ac5c9fe5f62e619bab081911a2a247ddbed4e0`
+- Kamei `db1ccef8fa1f4be3ed695b6b49a526b04cab9a1758fa5f1c722309027c5caa09`
 
-| Proposal item | Where |
+## Method in brief
+
+| Component | Where |
 |---|---|
-| Dataset-readiness gate, validation, exclusion rule | `src/jitsdp/data.py` |
-| Leakage-free preprocessing (log1p, collinearity filter, scaling fitted on train only) | `src/jitsdp/models.py` (`JITPreprocessor`) |
-| P1 random 70/30, P2 chronological 70/30, P3 chronological + latency gap G = 30/90/180 | `src/jitsdp/protocols.py` |
-| Rolling windows (train 12 m, gap 90 d, test 3 m, step 3 m) | `src/jitsdp/protocols.py` |
+| Dataset readiness gate, validation, pre-registered exclusion rule | `src/jitsdp/data.py` |
+| Leakage-free preprocessing (log1p, collinearity filter, scaling fitted on train only) | `src/jitsdp/models.py` |
+| P1 random 70/30 · P2 chronological 70/30 · P3 chronological + latency gap G = 30/90/180 days | `src/jitsdp/protocols.py` |
+| 495 rolling windows (train 12 m → gap 90 d → test 3 m), each paired with a shuffled split of the same commits | `src/jitsdp/protocols.py` |
+| LR, RF, XGBoost + prevalence and inverse-churn baselines; none / class weighting / under-sampling | `src/jitsdp/models.py` |
+| Time-ordered tuning; thresholds selected on validation data only | `src/jitsdp/models.py` |
+| PR-AUC, PR-AUC lift, ROC-AUC, F1, MCC, Brier, Recall@20% effort, Popt (risk and risk-per-line ranking) | `src/jitsdp/metrics.py` |
+| Wilcoxon + Holm, Cliff's δ, Friedman + Nemenyi, bootstrap CIs | `src/jitsdp/stats.py` |
+| SHAP per window and global; ranking stability | `src/jitsdp/experiments.py`, `analysis.py` |
 | Automated leakage checks | `protocols.check_split`, `tests/` |
-| LR, RF, XGBoost + Prevalence and LT (inverse size) baselines | `src/jitsdp/models.py` |
-| Imbalance: none / class weighting / random under-sampling (in-fold only) | `src/jitsdp/models.py` |
-| Time-ordered hyper-parameter tuning; thresholds chosen on validation data | `src/jitsdp/models.py` |
-| Precision, recall, F1, MCC, PR-AUC, ROC-AUC, Recall@20% effort, Popt | `src/jitsdp/metrics.py` |
-| Wilcoxon, Cliff's delta, Friedman + Nemenyi | `src/jitsdp/stats.py` |
-| SHAP (global + per window), LR coefficients, stability (H3) | `src/jitsdp/experiments.py`, `analysis.py` |
-| CLI prototype with Low/Medium/High risk | `predict.py` |
-
-## Improvements beyond the proposal
-
-1. Data audit: `apache/hadoop` has 0 defect-inducing commits (labeling artefact) and is excluded.
-2. Label-maturity check and **PR-AUC lift** (PR-AUC / prevalence) for fair cross-protocol comparison.
-3. **Paired random-vs-realistic windows** on the *same* commits: a stronger test of H1.
-4. Effort-aware supervised ranking (risk per changed line) next to the raw risk ranking.
-5. Calibration (Brier score) and bootstrap confidence intervals.
-6. Three-level prototype thresholds derived from validation data.
 
 ## Layout
 
 ```
-data/            raw dataset
-src/jitsdp/      pipeline package
-results/         CSV tables, raw results, figures/
-models/          prototype model + held-out examples
-report.md        generated results report (H1-H3 verdicts)
+src/jitsdp/          pipeline package
+tests/               unit tests
+run_all.py           per-dataset experiments + report
+cross_dataset.py     combined analysis over both datasets
+download_data.py     fetches the public datasets
+predict.py           command-line prototype (Low / Medium / High risk)
+results*/            result tables and figures per dataset (raw outputs are regenerated)
+report*.md           generated per-dataset reports
+paper/               LaTeX source, bibliography, and figures of the paper
 ```
+
+The datasets are not redistributed here; `download_data.py` fetches them from their
+original sources. Please cite the original dataset papers when using them.
+
+## Citation
+
+If you use this package, please cite the paper (citation details will be added after publication).

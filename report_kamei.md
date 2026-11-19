@@ -1,6 +1,6 @@
 # Realistic Evaluation of ML-Based Just-in-Time Defect Prediction - Results
 
-*SD566 Artificial Intelligence - Farida Al-Ghariani, Alaa Al-Muqadami. Generated automatically by `python run_all.py`.*
+*Dataset: kamei. Farida Hisham Ghariani, Alla Khaled Almuqadimi (CCTT, Tripoli). Generated automatically by `python run_all.py`.*
 
 ## Executive summary
 
