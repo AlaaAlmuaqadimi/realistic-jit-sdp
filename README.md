@@ -1,5 +1,8 @@
 # Does Just-in-Time Defect Prediction Survive Realistic Evaluation?
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24371575.svg)](https://doi.org/10.5281/zenodo.24371575)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Replication package for the paper
 **"Does Just-in-Time Defect Prediction Survive Realistic Evaluation? Time Order, Label Latency, and Review Effort on 321,288 Commits from Two Datasets"**
 by Farida Hisham Ghariani and Alla Khaled Almuqadimi
@@ -77,4 +80,10 @@ original sources. Please cite the original dataset papers when using them.
 
 ## Citation
 
-If you use this package, please cite the paper (citation details will be added after publication).
+If you use this package, please cite the paper (details will be added after publication)
+and the archived software:
+
+> Ghariani, F. H., & Almuqadimi, A. K. (2026). *realistic-jit-sdp: Replication package* (v1.0.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.24371576
+
+The DOI above identifies version v1.0.0, which was used in the paper. The concept DOI
+[10.5281/zenodo.24371575](https://doi.org/10.5281/zenodo.24371575) always resolves to the latest version.
