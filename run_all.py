@@ -95,6 +95,18 @@ def build_report(df, val, excl):
 
     meta = art["proto_meta"]
     nwin = windows[windows.setting == "realistic"].groupby("project").window.nunique()
+    if C.DATASET == "kamei":
+        audit = ("1. **Data audit**: all six projects pass the readiness gate and the exclusion "
+                 "rule; absolute churn is reconstructed as (la + ld) x lt because LA/LD are "
+                 "normalized in this dataset.\n")
+        effort_note = ("- Effort = (la + ld) x lt is reconstructed from normalized churn and "
+                       "simplifies review effort; new files (lt = 0) get minimal effort.\n")
+        scope_note = ("- The six projects (1996-2010) may not reflect current development "
+                      "practice or other ecosystems.\n")
+    else:
+        audit = "1. **Data audit** found and excluded the label-less `apache/hadoop` project.\n"
+        effort_note = "- Effort = lines added + deleted is a simplification of review effort.\n"
+        scope_note = "- Apache Java projects may not generalize to other ecosystems.\n"
     out = [
         "# Realistic Evaluation of ML-Based Just-in-Time Defect Prediction - Results\n",
         f"*Dataset: {C.DATASET}. Farida Hisham Ghariani, Alla Khaled Almuqadimi (CCTT, Tripoli). "
@@ -120,7 +132,7 @@ def build_report(df, val, excl):
         "resampling are fitted inside the training pipeline only; test data are never "
         "resampled; thresholds come from validation data. See `tests/test_pipeline.py`.\n",
         "## Improvements beyond the proposal\n",
-        "1. **Data audit** found and excluded the label-less `apache/hadoop` project.\n"
+        audit +
         "2. **Label-maturity check** + **PR-AUC lift** to compare protocols whose test "
         "prevalence differs.\n"
         "3. **Paired random-vs-realistic windows**: the same commits evaluated both ways, a "
@@ -134,8 +146,7 @@ def build_report(df, val, excl):
         "## Limitations\n",
         "- SZZ labels are noisy; no fix timestamps, so latency is approximated by a gap.\n"
         "- Rolling windows use fixed default hyper-parameters (tuning is done for P1/P2/P3).\n"
-        "- Effort = lines added + deleted is a simplification of review effort.\n"
-        "- Apache Java projects may not generalize to other ecosystems.\n",
+        + effort_note + scope_note,
         "## Environment\n",
         f"`{json.dumps(versions())}`\n",
     ]

@@ -35,8 +35,8 @@ pip install -r requirements.txt
 python download_data.py                     # fetch both datasets into data/ and print SHA-256
 python -m pytest -q                         # 12 leakage / protocol / metric tests
 python run_all.py --dataset apachejit       # ~19 min on 12 cores -> results/, report.md
-python run_all.py --dataset kamei           # ~36 min on 12 cores -> results_kamei/, report_kamei.md
-python cross_dataset.py                     # H1-H3 over all 19 projects -> results_combined/
+python run_all.py --dataset kamei           # ~35 min on 12 cores -> results_kamei/, report_kamei.md
+python cross_dataset.py                     # H1-H3 over all 19 projects -> results_combined/, paper/figures/
 python predict.py --example                 # prototype (needs a run_all.py run first)
 ```
 
@@ -72,11 +72,14 @@ download_data.py     fetches the public datasets
 predict.py           command-line prototype (Low / Medium / High risk)
 results*/            result tables and figures per dataset (raw outputs are regenerated)
 report*.md           generated per-dataset reports
-paper/               LaTeX source, bibliography, and figures of the paper
+paper/               LaTeX source, bibliography, and figures of the paper (see paper/README.md)
+CITATION.cff         citation metadata (GitHub "Cite this repository", Zenodo)
 ```
 
-The datasets are not redistributed here; `download_data.py` fetches them from their
-original sources. Please cite the original dataset papers when using them.
+The datasets are not redistributed here (this includes the prototype's held-out
+examples and trained models, which `run_all.py` writes to `models*/`);
+`download_data.py` fetches the data from their original sources. Please cite the
+original dataset papers when using them.
 
 ## Citation
 
@@ -87,3 +90,5 @@ and the archived software:
 
 The DOI above identifies version v1.0.0, which was used in the paper. The concept DOI
 [10.5281/zenodo.24371575](https://doi.org/10.5281/zenodo.24371575) always resolves to the latest version.
+GitHub's **Cite this repository** button (generated from `CITATION.cff`) gives the same
+reference in APA and BibTeX.

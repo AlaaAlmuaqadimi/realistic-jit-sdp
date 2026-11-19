@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: >-
+  realistic-jit-sdp: Replication package for "Does Just-in-Time Defect
+  Prediction Survive Realistic Evaluation?"
+authors:
+  - given-names: Farida Hisham
+    family-names: Ghariani
+    affiliation: "College of Computer Technology (CCTT), Tripoli, Libya"
+    orcid: "https://orcid.org/0009-0003-8836-5118"
+  - given-names: Alla Khaled
+    family-names: Almuqadimi
+    affiliation: "College of Computer Technology (CCTT), Tripoli, Libya"
+    orcid: "https://orcid.org/0009-0001-4590-4236"
+doi: 10.5281/zenodo.24371575
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.24371575
+    description: "Concept DOI (resolves to the latest version)"
+  - type: doi
+    value: 10.5281/zenodo.24371576
+    description: "Version DOI of v1.0.0, the version used in the paper"
+repository-code: "https://github.com/AlaaAlmuaqadimi/realistic-jit-sdp"
+license: MIT
+keywords:
+  - just-in-time defect prediction
+  - software defect prediction
+  - machine learning
+  - replication package
+abstract: >-
+  Replication package for a study of how realistic evaluation (chronological
+  splits, label-latency handling, class-imbalance treatment, and effort-aware
+  metrics) changes the measured performance of logistic regression, random
+  forest, and XGBoost for just-in-time defect prediction on 19 projects from
+  ApacheJIT and Kamei et al. It contains the leakage-checked pipeline, unit
+  tests, result tables, figures, a data-download script, and a command-line
+  prototype.

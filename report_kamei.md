@@ -312,7 +312,7 @@ Every split passes `check_split` before training (forbidden fields absent, no sh
 
 ## Improvements beyond the proposal
 
-1. **Data audit** found and excluded the label-less `apache/hadoop` project.
+1. **Data audit**: all six projects pass the readiness gate and the exclusion rule; absolute churn is reconstructed as (la + ld) x lt because LA/LD are normalized in this dataset.
 2. **Label-maturity check** + **PR-AUC lift** to compare protocols whose test prevalence differs.
 3. **Paired random-vs-realistic windows**: the same commits evaluated both ways, a much more powerful test of H1 than comparing different test sets.
 4. **Effort-aware supervised ranking** (risk per changed line) in addition to the raw risk ranking.
@@ -324,8 +324,8 @@ Every split passes `check_split` before training (forbidden fields absent, no sh
 
 - SZZ labels are noisy; no fix timestamps, so latency is approximated by a gap.
 - Rolling windows use fixed default hyper-parameters (tuning is done for P1/P2/P3).
-- Effort = lines added + deleted is a simplification of review effort.
-- Apache Java projects may not generalize to other ecosystems.
+- Effort = (la + ld) x lt is reconstructed from normalized churn and simplifies review effort; new files (lt = 0) get minimal effort.
+- The six projects (1996-2010) may not reflect current development practice or other ecosystems.
 
 ## Environment
 

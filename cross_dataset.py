@@ -2,7 +2,8 @@
 
 Reads the per-dataset raw results written by `run_all.py --dataset ...` and
 re-tests H1-H3 on all 19 projects together and per dataset. Writes
-results_combined/summary.md, CSV tables and paper figures.
+results_combined/summary.md, CSV tables, and every figure used by the paper
+(the x_* cross-dataset figures plus copies of the per-dataset figures).
 
     python cross_dataset.py
 """
@@ -250,6 +251,28 @@ def main():
     rq2(mainr, pp)
     rq3(shp)
     (OUT / "summary.md").write_text("\n".join(lines), encoding="utf-8")
+    copy_paper_figures()
+
+
+# per-dataset figures used by paper/main.tex: (source, name in paper/figures)
+PAPER_FIGURES = [
+    (SRC["ApacheJIT"] / "figures" / "data_prevalence_by_year.png", "data_prevalence_by_year.png"),
+    (SRC["Kamei"] / "figures" / "data_prevalence_by_year.png", "k_data_prevalence_by_year.png"),
+    (SRC["ApacheJIT"] / "figures" / "rq2_effort_curves.png", "rq2_effort_curves.png"),
+    (SRC["ApacheJIT"] / "figures" / "rq3_shap_beeswarm.png", "rq3_shap_beeswarm.png"),
+    (SRC["Kamei"] / "figures" / "rq3_shap_beeswarm.png", "k_rq3_shap_beeswarm.png"),
+    (SRC["ApacheJIT"] / "figures" / "rq3_stability_hist.png", "rq3_stability_hist.png"),
+    (SRC["ApacheJIT"] / "figures" / "rq3_rank_heatmap.png", "rq3_rank_heatmap.png"),
+]
+
+
+def copy_paper_figures():
+    """Refresh paper/figures from the per-dataset outputs of run_all.py."""
+    import shutil
+    FIG.mkdir(parents=True, exist_ok=True)
+    for src, name in PAPER_FIGURES:
+        shutil.copyfile(src, FIG / name)
+    print(f"copied {len(PAPER_FIGURES)} per-dataset figures to {FIG.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

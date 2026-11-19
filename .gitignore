@@ -4,6 +4,9 @@ data/
 # --- Large / binary generated artefacts (regenerate with run_all.py) ---
 *.joblib
 results*/raw/
+# prototype models and held-out examples (contain rows of the third-party datasets)
+models/
+models_*/
 
 # --- Run logs (contain local machine paths) ---
 *.log
